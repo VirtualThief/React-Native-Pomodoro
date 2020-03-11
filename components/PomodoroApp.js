@@ -1,27 +1,14 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Button, Vibration } from "react-native";
+import { StyleSheet, View, Vibration } from "react-native";
 import Constants from "expo-constants";
 
 import Timer from "./Timer";
 import TimerControlButtons from "./TimerControlButtons";
-
-function SetTimeIntervalButtons() {
-  return (
-    <View style={{ flexDirection: "row" }}>
-      <View style={{ flex: 1 / 2 }}>
-        <Button title="5 min" />
-      </View>
-      <View style={{ flex: 1 / 2 }}>
-        <Button title="25 min" />
-      </View>
-      {/* <Button title="Custom" /> */}
-    </View>
-  );
-}
+import SetTimeIntervalButtons from "./SetTimeIntervalButtons";
 
 export default class PomodoroApp extends Component {
   state = {
-    selectedInterval: 15000,
+    selectedInterval: 25 * 60 * 1000,
     currentRemainingTime: 0,
     endTime: null
   };
@@ -50,7 +37,9 @@ export default class PomodoroApp extends Component {
 
     return (
       <View style={styles.container}>
-        <SetTimeIntervalButtons />
+        <SetTimeIntervalButtons
+          setTimeInterval={interval => this.setTimeInterval(interval)}
+        />
         <Timer remainingTime={currentRemainingTime} />
         <TimerControlButtons
           startButtonVisible={timerStopped}
@@ -109,6 +98,14 @@ export default class PomodoroApp extends Component {
     this.stopTimer();
     this.setState(prevState => ({
       currentRemainingTime: prevState.selectedInterval
+    }));
+  }
+
+  setTimeInterval(interval) {
+    this.setState(prevState => ({
+      selectedInterval: interval,
+      currentRemainingTime:
+        prevState.endTime === null ? interval : prevState.currentRemainingTime
     }));
   }
 
