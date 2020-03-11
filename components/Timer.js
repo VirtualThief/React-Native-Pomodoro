@@ -1,10 +1,9 @@
 import React from "react";
 import { Text, StyleSheet } from "react-native";
+import format from "format-duration";
 
 function Timer({ remainingTime }) {
-  const remainingTimeAsDate = new Date(remainingTime);
-  // TODO Format using https://www.npmjs.com/package/format-duration
-  const remainingTimeText = `${remainingTimeAsDate.getMinutes()}:${remainingTimeAsDate.getSeconds()}`;
+  const remainingTimeText = format(remainingTime);
   return <Text style={styles.timer}>{remainingTimeText}</Text>;
 }
 
