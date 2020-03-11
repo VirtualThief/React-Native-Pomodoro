@@ -3,8 +3,8 @@ import { Text, StyleSheet } from "react-native";
 
 function Timer({ remainingTime }) {
   const remainingTimeAsDate = new Date(remainingTime);
-  const remainingTimeText = `${remainingTimeAsDate.getMinutes()}:${remainingTimeAsDate.getSeconds() +
-    (remainingTimeAsDate.getMilliseconds() > 0 ? 1 : 0)}`;
+  // TODO Format using https://www.npmjs.com/package/format-duration
+  const remainingTimeText = `${remainingTimeAsDate.getMinutes()}:${remainingTimeAsDate.getSeconds()}`;
   return <Text style={styles.timer}>{remainingTimeText}</Text>;
 }
 
