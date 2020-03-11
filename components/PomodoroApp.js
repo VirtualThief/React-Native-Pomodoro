@@ -8,7 +8,7 @@ import SetTimeIntervalButtons from "./SetTimeIntervalButtons";
 
 export default class PomodoroApp extends Component {
   state = {
-    selectedInterval: 25 * 60 * 1000,
+    selectedInterval: 25 * 60 * 1000, // 25 min by default
     currentRemainingTime: 0,
     endTime: null
   };

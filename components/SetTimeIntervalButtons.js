@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Button, StyleSheet } from "react-native";
+import Modal from "react-native-modal";
+
+import CustomTimeIntervalInput from "./CustomTimeIntervalInput";
 
 export default function SetTimeIntervalButtons({ setTimeInterval }) {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View style={styles.buttonRow}>
       <View style={styles.buttonWrapper}>
@@ -16,7 +21,24 @@ export default function SetTimeIntervalButtons({ setTimeInterval }) {
           onPress={() => setTimeInterval?.(25 * 60 * 1000)}
         />
       </View>
-      {/* <Button title="Custom" /> */}
+      <View style={styles.buttonWrapper}>
+        <Button title="Custom" onPress={() => setModalVisible(true)} />
+      </View>
+      <Modal
+        isVisible={modalVisible}
+        animationIn="fadeIn"
+        animationOut="fadeOut"
+      >
+        <View style={{ backgroundColor: "white" }}>
+          <CustomTimeIntervalInput
+            onCancelPress={() => setModalVisible(false)}
+            onTimeSubmit={newTime => {
+              setTimeInterval(newTime);
+              setModalVisible(false);
+            }}
+          />
+        </View>
+      </Modal>
     </View>
   );
 }
